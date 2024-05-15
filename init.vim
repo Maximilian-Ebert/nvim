@@ -41,8 +41,8 @@ nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-b> :Files<CR>
 nnoremap <C-n> :Buffers<CR>
 nnoremap <C-s> :w<CR>
-nnoremap <C-t> :edit term://bash<CR>
-tnoremap <Esc> <C-\><C-n>
+nnoremap <C-t> :vsplit term://bash<CR>
+tnoremap <Esc><Esc> <C-\><C-n>
 nmap <F8> :TagbarToggle<CR>
 
 
