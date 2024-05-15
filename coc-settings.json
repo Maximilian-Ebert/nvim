@@ -1,0 +1,6 @@
+{
+  "eslint.autoFixOnSave": true,
+  "[typescript][typescriptreact][javscript][javascriptreact][css][makrdown][json]": {
+    "coc.preferences.formatOnSave": true
+  }
+}
