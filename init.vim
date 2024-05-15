@@ -7,6 +7,7 @@
 :set smarttab
 :set softtabstop=2
 :set mouse=a
+:set splitright
 
 call plug#begin()
 
@@ -40,6 +41,8 @@ nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-b> :Files<CR>
 nnoremap <C-n> :Buffers<CR>
 nnoremap <C-s> :w<CR>
+nnoremap <C-t> :vsplit term://bash<CR>
+tnoremap <Esc> <C-\><C-n>
 nmap <F8> :TagbarToggle<CR>
 
 
