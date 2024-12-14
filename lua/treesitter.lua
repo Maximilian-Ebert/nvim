@@ -1,5 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   highlight = {
-		enable = true
+		enable = true,
+		ensure_installed = {"typescript", "javascript", "html", "css", "c", "cpp", "cmake", "zig"}
 	},
 }
