@@ -1,6 +1,17 @@
 require("mason").setup();
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "rust_analyzer", "tsserver", "clangd", "neocmake", "zls", "terraformls" },
+  ensure_installed = {
+		"lua_ls",
+		"rust_analyzer",
+		"clangd",
+		"neocmake",
+		"zls",
+		"terraformls",
+		"ts_ls",
+    "eslint",
+    "html",
+    "cssls"
+	},
 });
 
 require("lsp_lines").setup()
@@ -29,10 +40,6 @@ require("lspconfig").rust_analyzer.setup {
 	on_attach = on_attach,
 	capabilities = capabilities
 }
-require("lspconfig").tsserver.setup {
-	on_attach = on_attach,
-	capabilities = capabilities
-}
 
 require("lspconfig").eslint.setup({
 	on_attach = function(client, bufnr)
@@ -42,6 +49,11 @@ require("lspconfig").eslint.setup({
       command = "EslintFixAll",
     })
   end,
+	capabilities = capabilities
+})
+
+require('lspconfig').ts_ls.setup({
+	on_attach = on_attach,
 	capabilities = capabilities
 })
 
@@ -65,7 +77,6 @@ require("lspconfig").terraformls.setup{
 			end,
 		})
   end,
-
 
 	capabilities = capabilities
 }
