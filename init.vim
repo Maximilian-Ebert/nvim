@@ -30,8 +30,6 @@ Plug 'debugloop/telescope-undo.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'm4xshen/autoclose.nvim'
 
-Plug 'https://github.com/maan2003/lsp_lines.nvim'
-
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -44,11 +42,18 @@ Plug 'rafamadriz/friendly-snippets',
 Plug 'hedyhli/outline.nvim',
 
 Plug 'ziglang/zig.vim'
+
+Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'greggh/claude-code.nvim'
+
 call plug#end()
 
 lua require('telescope_config')
 lua require('cmp_config')
 lua require('lsp')
+lua require('claude')
 lua require('monokai')
 lua require('treesitter')
 lua require('outline_config')
@@ -80,6 +85,8 @@ nnoremap <leader>h <cmd>Telescope help_tags<cr>
 nnoremap <leader>u <cmd>Telescope undo<cr>
 
 nnoremap <leader>d <cmd>Telescope file_browser path=%:p:h select_buffer=true grouped=true<CR>
+
+nnoremap <leader>cc <cmd>ClaudeCode<CR>
 
 nnoremap <leader>t <cmd>lua vim.lsp.buf.hover()<CR>
 
