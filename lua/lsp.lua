@@ -1,11 +1,3 @@
-local configs = require 'lspconfig/configs'
-
-function Open_floating_window ()
-  vim.lsp.util.open_floating_preview({"line1", "line2", "line3"}, 'markdown')
-end
-
-vim.keymap.set({ 'n', 'v', 'i' }, '<C-h>', Open_floating_window)
-
 require("mason").setup();
 require("mason-lspconfig").setup({
   ensure_installed = {
@@ -16,7 +8,7 @@ require("mason-lspconfig").setup({
 		"clangd",
 		"neocmake",
 		"zls",
-		"vtsls",
+		"ts_ls",
 		"terraformls",
     "eslint",
     "html",
@@ -25,7 +17,6 @@ require("mason-lspconfig").setup({
     "tailwindcss",
 		"html",
 		"templ",
-		"htmx",
 	},
 	automatic_installation = true,
 });
@@ -36,36 +27,20 @@ vim.keymap.set("n", "ca", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "gt", require("telescope.builtin").lsp_type_definitions, {})
 vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, {})
 vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, {})
---vim.keymap.set("n", "gr", require("telescope.builtin").lsp_refrences, {})
 vim.keymap.set("n", "gr", vim.lsp.buf.hover, {})
 
-local on_attach = function(_, _)
-end
 
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require("lsp_lines").setup()
 vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
 
-require("lspconfig").lua_ls.setup {
-	on_attach = on_attach,
-	capabilities = capabilities
-}
-require("lspconfig").rust_analyzer.setup {
-	on_attach = on_attach,
-	capabilities = capabilities
-}
+require("lspconfig").lua_ls.setup {}
+require("lspconfig").rust_analyzer.setup {}
 
 require("lspconfig").astro.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
 	filetypes = { "astro" },
 })
 
 require("lspconfig").eslint.setup({
 	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
 		vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
       command = "EslintFixAll",
@@ -75,15 +50,11 @@ require("lspconfig").eslint.setup({
 	fileTypes= { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
 })
 
-require('lspconfig').vtsls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
+require('lspconfig').ts_ls.setup({
 	fileTypes= { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
 })
 
 require("lspconfig").clangd.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
 	vim.api.nvim_create_autocmd('BufWritePre', {
 		pattern = {"*.c", "*.h", "*.cpp", "*.hpp"},
 		callback = function()
@@ -92,14 +63,10 @@ require("lspconfig").clangd.setup {
 	})
 }
 
-require("lspconfig").neocmake.setup {
-	on_attach = on_attach,
-	capabilities = capabilities
-}
+require("lspconfig").neocmake.setup {}
 
 require("lspconfig").terraformls.setup{
 	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
 		vim.api.nvim_create_autocmd('BufWritePre', {
 			pattern = {"*.tf", "*.tfvars"},
 			callback = function()
@@ -107,8 +74,6 @@ require("lspconfig").terraformls.setup{
 			end,
 		})
   end,
-
-	capabilities = capabilities,
 	fileTypes= { "terraform" }
 }
 
@@ -116,7 +81,6 @@ require("lspconfig").terraformls.setup{
 
 require("lspconfig").zls.setup {
 	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
 		vim.api.nvim_create_augroup('AutoFormatting', {})
 		vim.api.nvim_create_autocmd('BufWritePre', {
 			pattern = '*.zig',
@@ -126,13 +90,10 @@ require("lspconfig").zls.setup {
 			end,
 		})
   end,
-
-	capabilities = capabilities
 }
 
 require('lspconfig').gopls.setup {
 	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
 		vim.api.nvim_create_augroup('AutoFormatting', {})
 		vim.api.nvim_create_autocmd('BufWritePre', {
 			pattern = '*.go',
@@ -142,7 +103,6 @@ require('lspconfig').gopls.setup {
 			end,
 		})
   end,
-	capabilities = capabilities,
 	filetypes = { "go" }
 }
 
@@ -151,7 +111,6 @@ capabilitiesHTML.textDocument.completion.completionItem.snippetSupport = true
 
 require('lspconfig').html.setup {
 	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
 		vim.api.nvim_create_augroup('AutoFormatting', {})
 		vim.api.nvim_create_autocmd('BufWritePre', {
 			pattern = '*.html',
@@ -166,7 +125,6 @@ require('lspconfig').html.setup {
 }
 require'lspconfig'.templ.setup{
 	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
 		vim.api.nvim_create_augroup('AutoFormatting', {})
 		vim.api.nvim_create_autocmd('BufWritePre', {
 			pattern = '*.templ',
@@ -176,20 +134,10 @@ require'lspconfig'.templ.setup{
 			end,
 		})
   end,
-	capabilities = capabilitiesHTML,
 	filetypes = { "templ" }
 }
 
-require'lspconfig'.htmx.setup{
-	on_attach = on_attach,
-	capabilities = capabilitiesHTML,
-	filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "htmlangular", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ" }
-
-}
-
 require'lspconfig'.tailwindcss.setup{
-	on_attach = on_attach,
-	capabilities = capabilitiesHTML,
 	filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "clojure", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "gohtmltmpl", "haml", "handlebars", "hbs", "html", "htmlangular", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte", "templ" }
 }
 

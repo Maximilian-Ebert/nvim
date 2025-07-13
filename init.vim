@@ -30,20 +30,9 @@ Plug 'debugloop/telescope-undo.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'm4xshen/autoclose.nvim'
 
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'mason-org/mason.nvim'
+Plug 'mason-org/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip',
-Plug 'rafamadriz/friendly-snippets',
-
-Plug 'hedyhli/outline.nvim',
-
-Plug 'ziglang/zig.vim'
-
-Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'greggh/claude-code.nvim'
@@ -51,12 +40,10 @@ Plug 'greggh/claude-code.nvim'
 call plug#end()
 
 lua require('telescope_config')
-lua require('cmp_config')
 lua require('lsp')
 lua require('claude')
 lua require('monokai')
 lua require('treesitter')
-lua require('outline_config')
 lua require("autoclose").setup()
 
 let mapleader=" "
