@@ -29,11 +29,16 @@ Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'debugloop/telescope-undo.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'm4xshen/autoclose.nvim'
-
+" lsp 
 Plug 'mason-org/mason.nvim'
 Plug 'mason-org/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-
+" auto complete
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+" claude KI tooling
 Plug 'nvim-lua/plenary.nvim'
 Plug 'greggh/claude-code.nvim'
 
@@ -41,6 +46,7 @@ call plug#end()
 
 lua require('telescope_config')
 lua require('lsp')
+lua require('cmp_config')
 lua require('claude')
 lua require('monokai')
 lua require('treesitter')
